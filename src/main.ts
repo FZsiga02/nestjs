@@ -5,6 +5,7 @@ import { join } from 'path';
 import { AppModule } from './app.module';
 import * as session from 'express-session';
 import * as filestore from 'session-file-store';
+import { StatsMiddleware } from './stats.middleware';
 
 const FileStore = filestore(session);
 
@@ -24,6 +25,8 @@ async function bootstrap() {
         saveUninitialized: false,
       }),
     );
+
+    app.use(new StatsMiddleware());
     
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
