@@ -3,8 +3,7 @@ import { NestMiddleware } from "@nestjs/common";
 import { NextFunction, Request, Response } from "express";
 import * as fs from 'fs';
 
-export class StatsMiddleware implements NestMiddleware {
-  use(req: Request, res: Response, next: NextFunction) {
+export function stats(req: Request, res: Response, next: NextFunction) {
     const ido = new Date().toISOString();
     const url = req.path;
     const adat = ido + ';' + url + '\n';
@@ -20,4 +19,3 @@ export class StatsMiddleware implements NestMiddleware {
     next();
   }
 
-}
